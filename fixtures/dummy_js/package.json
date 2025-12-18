@@ -1,0 +1,7 @@
+{
+  "name": "dummy-frontend",
+  "scripts": {
+    "start": "echo 'starting frontend'",
+    "build": "echo 'building frontend'"
+  }
+}
