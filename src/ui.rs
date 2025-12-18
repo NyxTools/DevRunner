@@ -11,7 +11,8 @@ use sysinfo::System;
 
 pub fn draw(f: &mut Frame, services: &[Service], selected_index: usize, app_title: &str, cpu_history: &[u64], sys: &mut System) {
     // Refresh system info
-    sys.refresh_all();
+    // Optimization: System info is refreshed in the tick handler in app.rs
+    // sys.refresh_all();
     
     let total_mem = sys.total_memory();
     let used_mem = sys.used_memory();

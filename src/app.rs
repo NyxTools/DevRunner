@@ -49,7 +49,9 @@ impl App {
     }
     
     pub fn on_tick(&mut self, sys: &mut System) {
-        sys.refresh_all(); // Refresh everything to be safe
+        // Optimization: Only refresh what we need
+        sys.refresh_cpu_usage();
+        sys.refresh_memory();
         let usage = sys.global_cpu_usage() as u64;
         
         self.cpu_history.push(usage);
