@@ -3,24 +3,6 @@
 version = 4
 
 [[package]]
-name = "DevRunner"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "chrono",
- "clap",
- "crossterm 0.29.0",
- "ratatui",
- "serde",
- "serde_json",
- "sysinfo",
- "tokio",
- "toml",
- "tui-big-text",
- "walkdir",
-]
-
-[[package]]
 name = "allocator-api2"
 version = "0.2.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -363,6 +345,24 @@ dependencies = [
  "quote",
  "rustc_version",
  "syn",
+]
+
+[[package]]
+name = "devrunner"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap",
+ "crossterm 0.29.0",
+ "ratatui",
+ "serde",
+ "serde_json",
+ "sysinfo",
+ "tokio",
+ "toml",
+ "tui-big-text",
+ "walkdir",
 ]
 
 [[package]]
