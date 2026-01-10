@@ -1,11 +1,15 @@
 [package]
-name = "DevRunner"
+name = "devrunner"
 version = "0.1.0"
 edition = "2024"
+description = "A terminal-based task runner for developers"
+license = "MIT"
+repository = "https://github.com/NyxTools/DevRunner"
 
 [dependencies]
 anyhow = "1.0.100"
 chrono = "0.4.42"
+clap = { version = "4.5.4", features = ["derive"] }
 crossterm = "0.29.0"
 ratatui = "0.29.0"
 serde = { version = "1.0.228", features = ["derive"] }

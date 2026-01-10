@@ -5,7 +5,7 @@ use std::path::PathBuf;
 pub enum ServiceStatus {
     #[default]
     Stopped,
-    Running(u32), // PID
+    Running(u32),
     Failed,
     Completed,
 }
@@ -22,7 +22,7 @@ pub struct Service {
     pub name: String,
     pub path: PathBuf,
     pub project_type: ProjectType,
-    pub command: String, // e.g., "npm run start" or "cargo run"
+    pub command: String,
     #[serde(skip)]
     pub status: ServiceStatus,
     #[serde(skip)]

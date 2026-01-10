@@ -1,0 +1,11 @@
+{
+    "ignore_paths": [
+        "node_modules"
+    ],
+    "custom_scripts": [
+        {
+            "name": "Echo Test",
+            "command": "echo 'Hello from config'"
+        }
+    ]
+}
