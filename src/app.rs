@@ -28,7 +28,7 @@ impl App {
             services,
             selected_index: 0,
             title: "DevRunner".to_string(),
-            cpu_history: vec![0; 40], // Default size, will be handled in draw or loop
+            cpu_history: vec![0; 40],
         }
     }
 
@@ -49,7 +49,6 @@ impl App {
     }
     
     pub fn on_tick(&mut self, sys: &mut System) {
-        // Optimization: Only refresh what we need
         sys.refresh_cpu_usage();
         sys.refresh_memory();
         let usage = sys.global_cpu_usage() as u64;
@@ -62,23 +61,19 @@ impl App {
 }
 
 pub async fn run_app(services: Vec<Service>) -> Result<()> {
-    // Setup terminal
     enable_raw_mode()?;
     let mut stdout = io::stdout();
     execute!(stdout, EnterAlternateScreen, EnableMouseCapture)?;
     let backend = CrosstermBackend::new(stdout);
     let mut terminal = Terminal::new(backend)?;
 
-    // Setup event channel
     let (tx, mut rx) = mpsc::unbounded_channel();
     let process_manager = Arc::new(ProcessManager::new(tx.clone()));
 
-    // System info struct
     let mut sys = System::new_all();
     sys.refresh_all();
 
-    // Tick handler
-    let tick_rate = Duration::from_millis(500); // 500ms update for CPU graph
+    let tick_rate = Duration::from_millis(500);
     let tx_tick = tx.clone();
     tokio::spawn(async move {
         loop {
@@ -89,7 +84,6 @@ pub async fn run_app(services: Vec<Service>) -> Result<()> {
         }
     });
 
-    // Input handler
     let tx_input = tx.clone();
     std::thread::spawn(move || {
         loop {
@@ -155,7 +149,6 @@ pub async fn run_app(services: Vec<Service>) -> Result<()> {
         }
     }
 
-    // Restore terminal
     disable_raw_mode()?;
     execute!(
         terminal.backend_mut(),
