@@ -4,7 +4,7 @@ use crate::process::ProcessManager;
 use crate::ui;
 use anyhow::Result;
 use crossterm::{
-    event::{self, DisableMouseCapture, EnableMouseCapture, Event as CEvent, KeyCode},
+    event::{self, DisableMouseCapture, EnableMouseCapture, Event as CEvent, KeyCode, KeyEventKind},
     execute,
     terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
 };
@@ -90,6 +90,11 @@ pub async fn run_app(services: Vec<Service>) -> Result<()> {
             if event::poll(Duration::from_millis(250)).expect("Poll failed") {
                 match event::read().expect("Read failed") {
                     CEvent::Key(key) => {
+                        // Only process key press events, ignore key release events
+                        // This prevents double-triggering on Windows terminals
+                        if key.kind != KeyEventKind::Press {
+                            continue;
+                        }
                         if tx_input.send(Event::Key(key)).is_err() { break; }
                     }
                     CEvent::Mouse(mouse) => {
